@@ -17,8 +17,8 @@ export class UsersComponent implements OnInit {
   isLoading = false;
 
   usuario = {
-    nombre: 'Josue',
-    apellido: 'Baez',
+    nombre: 'Daniella',
+    apellido: 'Contardo',
   };
 
   constructor(

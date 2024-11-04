@@ -1,20 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { AuthComponent } from './auth.component';
 
 const routes: Routes = [
   {
-    path: 'login', // /auth/login
-    component: LoginComponent,
-  },
-  {
-    path: 'register', // /auth/register
-    component: RegisterComponent,
-  },
-  {
-    path: '**',
-    redirectTo: 'login',
+    path: '',
+    component: AuthComponent,
+    children: [
+      {
+        path: 'login',
+        loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+      },
+      {
+        path: 'register',
+        loadChildren: () => import('./register/register.module').then(m => m.RegisterModule),
+      },
+      {
+        path: '**',
+        redirectTo: 'login',
+      },
+    ],
   },
 ];
 
