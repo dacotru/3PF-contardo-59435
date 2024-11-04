@@ -1,0 +1,36 @@
+<h1 mat-dialog-title appTitles>
+  {{ data?.editingUser ? "Editar" : "Crear" }} Alumno
+</h1>
+<mat-divider class="pb-3"></mat-divider>
+<div mat-dialog-content>
+  <form [formGroup]="alumnoForm">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field class="example-form-field w-100 mb-3">
+          <mat-label>Nombre</mat-label>
+          <input formControlName="firstName" matInput type="text" />
+          <control-errors [control]="alumnoForm.get('firstName')"></control-errors>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="example-form-field w-100 mb-3">
+          <mat-label>Apellido</mat-label>
+          <input formControlName="lastName" matInput type="text" />
+          <control-errors [control]="alumnoForm.get('lastName')"></control-errors>
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <mat-form-field class="example-form-field w-100">
+          <mat-label>Correo</mat-label>
+          <input formControlName="email" matInput type="email" />
+          <control-errors [control]="alumnoForm.get('email')"></control-errors>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-dialog-close mat-button>Cancelar</button>
+  <button (click)="onSave()" mat-flat-button color="primary">Guardar</button>
+</div>

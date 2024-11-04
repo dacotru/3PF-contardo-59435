@@ -1,0 +1,29 @@
+<h1 mat-dialog-title appTitles>
+  {{ data ? 'Editar Curso' : 'Crear Curso' }}
+</h1>
+<mat-divider class="pb-3"></mat-divider>
+<div mat-dialog-content>
+  <form [formGroup]="cursoForm" (ngSubmit)="onSave()">
+    <mat-form-field class="example-form-field w-100 mb-2">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" required>
+    </mat-form-field>
+    
+    <mat-form-field class="example-form-field w-100 mb-2">
+      <mat-label>Modalidad</mat-label>
+      <mat-select formControlName="modalidad" required>
+        <mat-option value="Diurno">Diurno</mat-option>
+        <mat-option value="Vespertino">Vespertino</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field class="example-form-field w-100 mb-2">
+      <mat-label>Profesor</mat-label>
+      <input matInput formControlName="profesor" required>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button (click)="onSave()" mat-flat-button color="primary" [disabled]="cursoForm.invalid">Guardar</button>
+</div>
