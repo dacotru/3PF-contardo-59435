@@ -9,6 +9,16 @@
       "password": "123456",
       "createdAt": "2024-11-05T02:04:15.131Z",
       "token": "hrQzA6Bvkh1qIlVsR8kD"
+    },
+    {
+      "id": "ojnA",
+      "firstName": "Editor",
+      "lastName": "Master",
+      "email": "danicontardo@gmail.com",
+      "role": "Usuario",
+      "password": "123456",
+      "createdAt": "2024-11-05T17:19:06.853Z",
+      "token": "uks6apeAu4A9p0gLVgnN"
     }
   ],
   "alumnos": [
@@ -39,6 +49,12 @@
       "nombre": "Curso de JS",
       "modalidad": "Diurno",
       "profesor": "Profesor A"
+    },
+    {
+      "id": "UpBJ",
+      "nombre": "Curso de React",
+      "modalidad": "Vespertino",
+      "profesor": "Profesor C"
     }
   ]
 }
