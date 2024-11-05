@@ -3,8 +3,11 @@
     <div class="col-12">
       <h1 appTitles class="mt-4">Detalle del Alumno:</h1>
       <mat-divider class="mb-4"></mat-divider>
-      <p><strong>Nombre:</strong></p>
-      <p><strong>Apellido:</strong> </p>
+      <p><strong>ID:</strong> {{ alumno?.id }}</p>
+      <p><strong>Nombre:</strong> {{ alumno?.firstName }}</p>
+      <p><strong>Apellido:</strong> {{ alumno?.lastName }}</p>
+      <p><strong>Correo Electrónico:</strong> {{ alumno?.email }}</p>
+      <p><strong>Fecha de Creación:</strong> {{ alumno?.createdAt | date }}</p>
     </div>
   </div>
 </div>
