@@ -6,17 +6,17 @@
       "lastName": "Master",
       "email": "admin@alumnify.com",
       "role": "Administrador",
-      "password": "3vCH2sV7",
+      "password": "123456",
       "createdAt": "2024-11-05T02:04:15.131Z",
       "token": "hrQzA6Bvkh1qIlVsR8kD"
     },
     {
       "id": "GcIj",
       "firstName": "Editor",
-      "lastName": "B",
+      "lastName": "Bff",
       "email": "admin@alumnify.com",
       "role": "Usuario",
-      "password": "lPmLhOnp",
+      "password": "123456",
       "createdAt": "2024-11-05T02:05:12.832Z",
       "token": "LgnNlwLKJ7zDQb2TaWMx"
     }
