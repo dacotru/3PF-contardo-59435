@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { User } from './models';
@@ -11,15 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './users.component.scss',
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'email', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'role', 'createdAt', 'actions'];
   dataSource: User[] = [];
 
   isLoading = false;
-
-  usuario = {
-    nombre: 'Daniella',
-    apellido: 'Contardo',
-  };
 
   constructor(
     private matDialog: MatDialog,
@@ -47,15 +42,15 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  onDelete(id: string) {
-    if (confirm('Esta seguro?')) {
-      // this.dataSource = this.dataSource.filter((user) => user.id !== id);
+  onDelete(id: string): void {
+    if (confirm('¿Está seguro de que desea eliminar este usuario?')) {
       this.isLoading = true;
       this.usersService.removeUserById(id).subscribe({
-        next: (users) => {
-          this.dataSource = users;
+        next: () => {
+          this.dataSource = this.dataSource.filter((user) => user.id !== id);
         },
         error: (err) => {
+          console.error('Error eliminando usuario:', err);
           this.isLoading = false;
         },
         complete: () => {
@@ -64,6 +59,7 @@ export class UsersComponent implements OnInit {
       });
     }
   }
+  
 
   goToDetail(id: string): void {
     this.router.navigate([id, 'detail'], {

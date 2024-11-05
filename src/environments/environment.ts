@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseURL: 'https://my-production-url.com.ar',
-};
+    apiBaseURL: 'https://alumnify.com',
+  };

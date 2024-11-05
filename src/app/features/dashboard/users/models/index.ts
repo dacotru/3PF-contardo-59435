@@ -6,4 +6,5 @@ export interface User {
   password: string;
   token: string;
   createdAt: Date;
+  role: string;
 }

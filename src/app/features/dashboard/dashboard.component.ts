@@ -1,13 +1,25 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { Observable } from 'rxjs';
+import { User } from './users/models';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent implements AfterViewInit {
-  @ViewChild(MatDrawer) drawer!: MatDrawer; 
+export class DashboardComponent {
+  showFiller = false;
 
-  ngAfterViewInit() {}
+  authUser$: Observable<User | null>;
+
+  constructor(private router: Router, private authService: AuthService) {
+    this.authUser$ = this.authService.authUser$;
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

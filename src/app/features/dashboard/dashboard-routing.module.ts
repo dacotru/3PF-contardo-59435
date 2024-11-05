@@ -23,6 +23,10 @@ const routes: Routes = [
           import('./cursos/cursos.module').then((m) => m.CursosModule),
       },
       {
+        path: 'usuarios',
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule), // Agrega esta línea para Usuarios
+      },
+      {
         path: '**',
         redirectTo: 'home',
         pathMatch: 'full',
