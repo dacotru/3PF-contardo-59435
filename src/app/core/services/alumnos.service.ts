@@ -1,58 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Alumno } from '../../features/dashboard/alumnos/models';
-import { Observable, of } from 'rxjs';
-import { generateRandomString } from '../../shared/utils';
-
-let ALUMNOSBASE: Alumno[] = [
-  {
-    id: '63c9',
-    firstName: 'Daniella',
-    lastName: 'Contardo',
-    createdAt: new Date(),
-    email: 'danicontardo@gmail.com',
-  },
-];
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlumnoService {
-  constructor() {}
+  private baseURL = `${environment.apiBaseURL}/alumnos`;
+
+  constructor(private httpClient: HttpClient) {}
 
   getAlumnos(): Observable<Alumno[]> {
-    return of(ALUMNOSBASE);
+    return this.httpClient.get<Alumno[]>(this.baseURL);
   }
 
-  removeAlumnoById(id: string): Observable<Alumno[]> {
-    ALUMNOSBASE = ALUMNOSBASE.filter((alumno) => alumno.id !== id);
-    return of(ALUMNOSBASE);
+  getById(id: string): Observable<Alumno> {
+    return this.httpClient.get<Alumno>(`${this.baseURL}/${id}`);
   }
 
-  updateAlumnoById(id: string, update: Partial<Alumno>): Observable<Alumno[]> {
-    ALUMNOSBASE = ALUMNOSBASE.map((alumno) =>
-      alumno.id === id ? { ...alumno, ...update } : alumno
-    );
-    return of(ALUMNOSBASE);
+  removeAlumnoById(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseURL}/${id}`);
   }
 
-  addAlumno(newAlumno: Alumno): Observable<Alumno | null> {
-    const trimmedEmail = newAlumno.email.trim().toLowerCase();
-    const trimmedFirstName = newAlumno.firstName.trim().toLowerCase();
-    const trimmedLastName = newAlumno.lastName.trim().toLowerCase();
+  updateAlumnoById(id: string, update: Partial<Alumno>): Observable<Alumno> {
+    return this.httpClient.patch<Alumno>(`${this.baseURL}/${id}`, update);
+  }
 
-    const alumnoExists = ALUMNOSBASE.some(alumno => 
-      alumno.email.trim().toLowerCase() === trimmedEmail ||
-      (alumno.firstName.trim().toLowerCase() === trimmedFirstName &&
-      alumno.lastName.trim().toLowerCase() === trimmedLastName)
-    );
-    
-    if (alumnoExists) {
-      return of(null); 
-    }
-    
-    newAlumno.id = generateRandomString(4);
-    newAlumno.createdAt = new Date();
-    ALUMNOSBASE = [...ALUMNOSBASE, { ...newAlumno }];
-    return of({ ...newAlumno });
+  addAlumno(newAlumno: Omit<Alumno, 'id' | 'createdAt'>): Observable<Alumno> {
+    return this.httpClient.post<Alumno>(this.baseURL, {
+      ...newAlumno,
+      createdAt: new Date().toISOString(),
+    });
   }
 }

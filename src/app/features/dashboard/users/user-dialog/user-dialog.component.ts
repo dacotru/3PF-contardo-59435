@@ -44,7 +44,6 @@ export class UserDialogComponent {
       ],
     });
 
-    // Elimina la validación de `password` si estamos en modo de edición
     if (this.isEditing) {
       this.userForm.get('password')?.clearValidators();
       this.userForm.get('password')?.updateValueAndValidity();

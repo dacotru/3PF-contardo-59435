@@ -31,10 +31,18 @@ export class CursosComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      if (result && !this.dataCursos.some(c => 
-          c.nombre.trim().toLowerCase() === result.nombre.trim().toLowerCase() &&
-          c.modalidad.trim().toLowerCase() === result.modalidad.trim().toLowerCase())) {
-        this.dataCursos.push({ ...result });
+      if (result) {
+        const existingIndex = this.dataCursos.findIndex(c => c.id === result.id);
+        
+        if (existingIndex !== -1) {
+          // Actualiza el curso editado en la lista
+          this.dataCursos[existingIndex] = { ...result };
+        } else {
+          // Agrega un nuevo curso si no existe en la lista
+          this.dataCursos.push({ ...result });
+        }
+
+        // Actualiza la referencia para detonar el cambio en la vista
         this.dataCursos = [...this.dataCursos];
       }
     });

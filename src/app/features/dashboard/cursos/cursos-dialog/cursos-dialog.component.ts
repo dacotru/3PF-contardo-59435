@@ -62,17 +62,21 @@ export class CursosDialogComponent {
 
     this.isSaving = true;
 
-    const nuevoCurso: Curso = {
+    const updatedCurso: Curso = {
       ...this.cursoForm.value,
       id: this.data ? this.data.id : generateRandomString(8),
     };
 
-    this.cursosService.addCurso(nuevoCurso).subscribe((result) => {
+    const saveObservable = this.data
+      ? this.cursosService.updateCursoById(updatedCurso.id, updatedCurso)
+      : this.cursosService.addCurso(updatedCurso);
+
+    saveObservable.subscribe((result) => {
       this.isSaving = false;
 
       if (result) {
         this.dialogRef.close(result);
-      } else {
+      } else if (!this.data) {
         alert('El curso con el mismo nombre y modalidad ya existe.');
       }
     });

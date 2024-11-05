@@ -7,6 +7,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ControlErrorComponent } from './control-errors/control-errors.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.component';
+import { AlumnosDetailComponent } from './alumnos-detail/alumnos-detail.component';
 
 
 
@@ -14,7 +15,8 @@ import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.componen
   declarations: [
     AlumnosComponent,
     ControlErrorComponent,
-    AlumnosDialogComponent
+    AlumnosDialogComponent,
+    AlumnosDetailComponent
   ],
   imports: [
     CommonModule,

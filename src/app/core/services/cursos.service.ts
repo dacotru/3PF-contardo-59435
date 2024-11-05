@@ -1,55 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Curso } from '../../features/dashboard/cursos/models';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { generateRandomString } from '../../shared/utils';
-
-let CURSOSBASE: Curso[] = [
-  {
-    id: '63c9',
-    nombre: 'Curso de Angular',
-    modalidad: 'Vespertino',
-    profesor: 'Profesor A',
-  },
-];
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CursosService {
-  constructor() {}
+  private baseURL = `${environment.apiBaseURL}/cursos`;
+
+  constructor(private httpClient: HttpClient) {}
 
   getCursos(): Observable<Curso[]> {
-    return of([...CURSOSBASE]);
+    return this.httpClient.get<Curso[]>(this.baseURL);
   }
 
   removeCursoById(id: string): Observable<Curso[]> {
-    CURSOSBASE = CURSOSBASE.filter((curso) => curso.id !== id);
-    return of([...CURSOSBASE]);
+    return this.httpClient.delete<Curso[]>(`${this.baseURL}/${id}`);
   }
 
-  addCurso(newCurso: Curso): Observable<Curso | null> {
-    const cursoExists = CURSOSBASE.some(
-      (curso) =>
-        curso.nombre.trim().toLowerCase() === newCurso.nombre.trim().toLowerCase() &&
-        curso.modalidad.trim().toLowerCase() === newCurso.modalidad.trim().toLowerCase()
-    );
-
-    if (cursoExists) {
-      console.log('Curso ya existe con el mismo nombre y modalidad:', newCurso.nombre);
-      return of(null);
-    } else {
-      const newCursoCopy = { ...newCurso };
-      newCursoCopy.id = generateRandomString(4);
-      CURSOSBASE = [...CURSOSBASE, newCursoCopy];
-      console.log('Curso agregado:', newCursoCopy);
-      return of(newCursoCopy);
-    }
+  addCurso(newCurso: Omit<Curso, 'id'>): Observable<Curso> {
+    return this.httpClient.post<Curso>(this.baseURL, {
+      ...newCurso,
+      id: generateRandomString(4),
+    });
   }
 
-  updateCursoById(id: string, update: Partial<Curso>): Observable<Curso[]> {
-    CURSOSBASE = CURSOSBASE.map((curso) =>
-      curso.id === id ? { ...curso, ...update } : curso
-    );
-    return of([...CURSOSBASE]);
+  updateCursoById(id: string, update: Partial<Curso>): Observable<Curso> {
+    return this.httpClient.patch<Curso>(`${this.baseURL}/${id}`, update);
   }
+    
 }

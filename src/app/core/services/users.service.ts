@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../features/dashboard/users/models';
-import { concatMap, Observable, of } from 'rxjs';
+import { concatMap, Observable } from 'rxjs';
 import { generateRandomString } from '../../shared/utils';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -25,7 +25,7 @@ export class UsersService {
     return this.httpClient.post<User>(`${this.baseURL}/users`, {
       ...data,
       role: 'Administrador',
-      password: generateRandomString(8),
+      password: generateRandomString(6),
       token: generateRandomString(20),
       createdAt: new Date().toISOString(),
     });

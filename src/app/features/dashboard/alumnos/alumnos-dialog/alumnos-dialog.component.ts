@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { generateRandomString } from '../../../../shared/utils';
 import { Alumno } from '../models';
 import { AlumnoService } from '../../../../core/services/alumnos.service';
 
@@ -50,22 +49,31 @@ export class AlumnosDialogComponent {
     } else {
       this.isSaving = true;
 
-      const newAlumno: Alumno = {
-        ...this.alumnoForm.value,
-        id: this.isEditing ? this.data!.editingUser!.id : generateRandomString(4),
-        createdAt: this.isEditing ? this.data!.editingUser!.createdAt : new Date(),
-      };
-
-      this.alumnoService.addAlumno(newAlumno).subscribe((result) => {
-        this.isSaving = false;
-
-        if (result) {
-          this.matDialogRef.close(result);
-        } else {
-          alert('El alumno ya existe.');
-        }
-      });
+      const alumnoData = this.alumnoForm.value;
+      
+      if (this.isEditing) {
+        this.alumnoService.updateAlumnoById(this.data!.editingUser!.id, alumnoData).subscribe({
+          next: (result) => {
+            this.isSaving = false;
+            this.matDialogRef.close(result);
+          },
+          error: () => {
+            this.isSaving = false;
+            alert('Hubo un error al actualizar el alumno.');
+          }
+        });
+      } else {
+        this.alumnoService.addAlumno(alumnoData).subscribe({
+          next: (result) => {
+            this.isSaving = false;
+            this.matDialogRef.close(result);
+          },
+          error: () => {
+            this.isSaving = false;
+            alert('Hubo un error al agregar el alumno.');
+          }
+        });
+      }
     }
   }
 }
-

@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AlumnoService } from '../../../core/services/alumnos.service';
 import { AlumnosDialogComponent } from './alumnos-dialog/alumnos-dialog.component';
 import { Alumno } from './models';
-import { AlumnoService } from '../../../core/services/alumnos.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-alumnos',
   templateUrl: './alumnos.component.html',
   styleUrls: ['./alumnos.component.scss']
 })
-
 export class AlumnosComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'createdAt', 'actions'];
   dataSource: Alumno[] = [];
@@ -18,7 +18,9 @@ export class AlumnosComponent implements OnInit {
 
   constructor(
     private matDialog: MatDialog,
-    private alumnosService: AlumnoService
+    private alumnosService: AlumnoService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +65,6 @@ export class AlumnosComponent implements OnInit {
     });
   }
   
-  
   onDelete(id: string): void {
     if (confirm('¿Estás seguro que quieres eliminar este alumno?')) {
       this.isLoading = true;
@@ -79,5 +80,11 @@ export class AlumnosComponent implements OnInit {
         },
       });
     }
+  }
+
+  goToDetail(id: string): void {
+    this.router.navigate([id, 'detail'], {
+      relativeTo: this.activatedRoute,
+    });
   }
 }

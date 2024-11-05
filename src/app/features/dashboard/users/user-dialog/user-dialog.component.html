@@ -1,12 +1,12 @@
-<h1 mat-dialog-title>
-  {{ data?.editingUser ? "Editando" : "Creando" }} usuario
+<h1 mat-dialog-title appTitles>
+  {{ data?.editingUser ? "Editar" : "Crear" }} usuario
 </h1>
 
 <div mat-dialog-content>
   <form [formGroup]="userForm">
     <div class="row">
       <div class="col-6">
-        <mat-form-field class="example-form-field w-100">
+        <mat-form-field class="example-form-field w-100 mb-3">
           <mat-label>Nombre</mat-label>
           <input formControlName="firstName" matInput type="text" />
           <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">
@@ -22,7 +22,7 @@
       </div>
 
       <div class="col-6">
-        <mat-form-field class="example-form-field w-100">
+        <mat-form-field class="example-form-field w-100 mb-3">
           <mat-label>Apellido</mat-label>
           <input formControlName="lastName" matInput type="text" />
           <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">
@@ -38,7 +38,7 @@
       </div>
 
       <div class="col-12">
-        <mat-form-field class="example-form-field w-100">
+        <mat-form-field class="example-form-field w-100 mb-3">
           <mat-label>Email</mat-label>
           <input formControlName="email" matInput type="email" />
           <mat-error *ngIf="userForm.get('email')?.hasError('required')">
@@ -51,7 +51,7 @@
       </div>
 
       <div class="col-6">
-        <mat-form-field class="example-form-field w-100">
+        <mat-form-field class="example-form-field w-100 mb-3">
           <mat-label>Rol</mat-label>
           <mat-select formControlName="role">
             <mat-option value="Administrador">Administrador</mat-option>
@@ -64,9 +64,9 @@
       </div>
 
       <div class="col-6">
-        <mat-form-field class="example-form-field w-100">
+        <mat-form-field class="example-form-field w-100 mb-3">
           <mat-label>Contraseña</mat-label>
-          <input formControlName="password" matInput type="password" />
+          <input formControlName="password" matInput type="text" />
           <mat-error *ngIf="userForm.get('password')?.hasError('required')">
             Este campo es requerido
           </mat-error>

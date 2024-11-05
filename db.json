@@ -9,16 +9,36 @@
       "password": "123456",
       "createdAt": "2024-11-05T02:04:15.131Z",
       "token": "hrQzA6Bvkh1qIlVsR8kD"
-    },
+    }
+  ],
+  "alumnos": [
     {
       "id": "GcIj",
-      "firstName": "Editor",
-      "lastName": "Bff",
-      "email": "admin@alumnify.com",
-      "role": "Usuario",
-      "password": "123456",
-      "createdAt": "2024-11-05T02:05:12.832Z",
-      "token": "LgnNlwLKJ7zDQb2TaWMx"
+      "firstName": "Dani",
+      "lastName": "Contardo",
+      "email": "danicontardo@gmail.com",
+      "createdAt": "2024-11-05T02:05:12.832Z"
+    },
+    {
+      "id": "G0gD",
+      "firstName": "Edda",
+      "lastName": "Castell",
+      "email": "edda@castel.com",
+      "createdAt": "2024-11-05T05:37:49.582Z"
+    }
+  ],
+  "cursos": [
+    {
+      "id": "4MSi",
+      "nombre": "Curso de Angular",
+      "modalidad": "Vespertino",
+      "profesor": "Profesor B"
+    },
+    {
+      "id": "W6Xw",
+      "nombre": "Curso de JS",
+      "modalidad": "Diurno",
+      "profesor": "Profesor A"
     }
   ]
 }
